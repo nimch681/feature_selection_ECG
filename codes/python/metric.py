@@ -3,7 +3,7 @@ import pickle
 from sklearn import svm, metrics
 from matplotlib import pyplot as plt
 
-def get_metrics(yhat, labels):
+def get_metrics(yhat, labels, lb):
     """
     Creates metrics to assess the model's performance.
     yhat - the predicted labels
@@ -11,14 +11,14 @@ def get_metrics(yhat, labels):
     @returns - [kappa, j, jkappa]
     """
     
-    conf_matrix =  metrics.confusion_matrix(yhat, labels)
+    conf_matrix =  metrics.confusion_matrix(yhat, labels, labels=lb )
     kappa = get_kappa(conf_matrix, len(labels))
     j = get_j_index(conf_matrix)
     jkappa = 0.5*kappa + 0.125*j
     return [kappa, j, jkappa]
 
-def get_class_metrics(yhat, labels):
-    confusion_matrix = metrics.confusion_matrix(yhat, labels)
+def get_class_metrics(yhat, labels, lb):
+    confusion_matrix = metrics.confusion_matrix(yhat, labels, labels= lb )
     Sen = float(confusion_matrix[0,0])/float(sum(confusion_matrix[0,:]))
     Ses = float(confusion_matrix[1,1])/float(sum(confusion_matrix[1,:]))
     Sev = float(confusion_matrix[2,2])/float(sum(confusion_matrix[2,:]))
