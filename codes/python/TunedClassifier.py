@@ -1,4 +1,5 @@
 from sklearn import svm
+from codes.python import metric
 
 ## small C from 1 to 3 seems to be good for f class recalled
 ## degree 3 is better all around
